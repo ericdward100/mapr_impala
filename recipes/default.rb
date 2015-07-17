@@ -39,9 +39,11 @@ end
   end
 
 
+impala_version=`ls /opt/mapr/impala|grep impala-|tr -d '\n'`
+
 ruby_block "Set Impala parametersE in /opt/mapr/impala/impa../conf/env.sh" do
   block do
-        file  = Chef::Util::FileEdit.new("/opt/mapr/impala/impala-1.4.1/conf/env.sh")
+        file  = Chef::Util::FileEdit.new("/opt/mapr/impala/#{impala_version}/conf/env.sh")
 	file.search_file_replace_line("IMPALA_STATE_STORE_HOST=","IMPALA_STATE_STORE_HOST=#{node[:mapr][:impala_state]}")
        	file.search_file_replace_line("CATALOG_SERVICE_HOST=","CATALOG_SERVICE_HOST=#{node[:mapr][:impala_catalog]}")
  
